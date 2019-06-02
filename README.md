@@ -1,7 +1,7 @@
 # folio
 
-(PT) Isto é um portefólio que eu fiz para a minha cadeira de Multimédia. O site propriamente dito está em `site/index.html`.
-(EN) This is a portfolio I made for my Multimedia class. The site proper can be found in `site/index.html`.
+(PT) Isto é um portefólio que eu fiz para a minha cadeira de Multimédia. O site propriamente dito está em [`site/index.html](./site/index.html)`.  
+(EN) This is a portfolio I made for my Multimedia class. The site proper can be found in [`site/index.html`](./site/index.html).
 
 ## Development
 
