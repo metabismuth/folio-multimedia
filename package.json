@@ -1,0 +1,38 @@
+{
+  "name": "folio",
+  "private": true,
+  "scripts": {
+    "lint": "npm-run-all -s -c lint-task:*",
+    "lint-task:htmlhint": "htmlhint ./site",
+    "lint-task:stylelint": "stylelint ./site/assets/style --fix",
+    "lint-task:eslint": "eslint ./site/assets/script --fix",
+    "lint-task:validate": "java -jar ./node_modules/vnu-jar/build/dist/vnu.jar --asciiquotes --skip-non-html --also-check-css ./site/**"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint",
+    "*.css": [
+      "stylelint",
+      "java -jar ./node_modules/vnu-jar/build/dist/vnu.jar --asciiquotes --css"
+    ],
+    "*.html": [
+      "htmlhint",
+      "java -jar ./node_modules/vnu-jar/build/dist/vnu.jar --asciiquotes --html"
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "htmlhint": "^0.11.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
+    "npm-run-all": "^4.1.5",
+    "stylelint": "^9.10.1",
+    "stylelint-config-standard": "latest",
+    "vnu-jar": "^18.11.5"
+  }
+}

@@ -1,0 +1,267 @@
+@import url("./normalize.css");
+@import url("./fira.css");
+
+:root {
+  --page-width: 120ch;
+
+  /* Color variables */
+  --color-background: #251a27;
+  --color-primary: #bbddb8;
+  --color-secondary: #4a344e;
+  --color-highlight: #c0a929;
+
+  /* Font variables */
+  --font-masthead: "Fira Sans Heavy", sans-serif;
+  --font-main: "Fira Sans", sans-serif;
+  --font-heading: "Fira Sans Heavy", sans-serif;
+  --font-code: "Fira Mono", Courier, monospace;
+
+  /* Border width variable for nav and footer */
+  --border-width: 2px;
+
+  /* Scrollbar color.
+   * Unsure where this is supported other than ff>=64
+   */
+  scrollbar-color: var(--color-highlight) var(--color-secondary);
+}
+
+body {
+  /* Required for centering #wrap */
+  display: flex;
+  flex-direction: column;
+
+  /* Font */
+  font-family: var(--font-main);
+
+  /* Colors */
+  background: var(--color-background);
+  color: var(--color-primary);
+}
+
+#wrap {
+  /* Center all content horizontally */
+  margin: 0 auto;
+
+  /* Allow the width to reach only --page-width + padding */
+  width: calc(100vw - 1ch * 4);
+  max-width: var(--page-width);
+  padding: 0 1ch;
+}
+
+/* Make sure the footer is at the bottom of the page by making sure header and
+ * main (included in #bulk) occupy 100% of the viewport height
+ */
+#bulk { min-height: 100vh; }
+
+/* Links */
+a { color: var(--color-highlight); }
+a:visited { color: var(--color-highlight); }
+a.heading {
+  color: inherit;
+  text-decoration: none;
+}
+a.heading::before {
+  content: "# ";
+  color: var(--color-secondary);
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+/* Header text (masthead) */
+.masthead { font-family: var(--font-masthead); }
+
+/* Header blurb */
+.blurb { text-align: justify; }
+
+/* Navigation */
+nav {
+  padding: 5px 2ch;
+  background: var(--color-background);
+  border-top: var(--border-width) dotted var(--color-primary);
+  border-bottom: var(--border-width) dotted var(--color-primary);
+
+  /* Stay on top of the page while scrolling.
+   * Also note that we sticky the nav from the top slightly offscreen so that
+   * the dotted border at the top is obscured.
+   */
+  position: sticky;
+  top: calc(var(--border-width) * -1);
+
+  /* Flex */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Navigation links */
+.navlink {
+  font-family: var(--font-main);
+  text-decoration: none;
+  padding: 3px 2ch;
+  animation: height 1s linear;
+}
+
+/* Navigation toggle button for screens that aren't large enough */
+#navtoggle {
+  font-family: var(--font-main);
+  color: var(--color-highlight);
+  background: transparent;
+  border: 0;
+  display: none;
+  padding: 3px 2ch;
+  cursor: pointer;
+}
+
+/* Viewports under 935px should hide the navigation */
+@media screen and (max-width: 935px) {
+  .navlink { display: none; }
+  nav.toggled .navlink { display: block; }
+  nav { display: block; }
+  #navtoggle { display: block; }
+}
+
+/* a little extra margin on both sides of <main> */
+main { margin: 0 1ch; }
+
+footer {
+  /* Minimum height 30vh means that the tail end of the main article text can
+   * be scrolled closer to the vertical center of the page.
+   * It's easier to read things in the center of your screen, in my opinion
+   */
+  min-height: 20vh;
+
+  /* Top border in the same style as the one in <nav> */
+  border-top: var(--border-width) dotted var(--color-primary);
+
+  margin: 5em 0 1em 0;
+  padding: 1em 1ch;
+
+  /* Don't let floating images break past the footer */
+  clear: both;
+}
+
+.scroll-up { float: right; }
+
+/* Figure (for images, video, audio(?)) */
+figure {
+  /* Reset margin */
+  margin: auto 0;
+
+  /* Align both figcaption and anything inside the figure to the center */
+  text-align: center;
+  padding: .5em 2ch;
+}
+
+/* Left and right floating figures */
+figure.right { float: right; }
+figure.left { float: left; }
+
+/* Prevent images from overflowing from the figure */
+figure img { max-width: 100%; }
+
+/* Figure caption */
+figcaption {
+  font-style: italic;
+}
+
+figcaption table {
+  /* Center the table */
+  margin: 0 auto;
+
+  /* Reset text to normal style */
+  font-style: initial;
+
+  /* Setup table border */
+  border-spacing: 0;
+  border: 1px solid var(--color-primary);
+}
+
+figcaption table th,
+figcaption table td {
+  border: 1px solid var(--color-primary);
+  padding: 2px 5px;
+}
+
+figcaption table caption { visibility: hidden; }
+
+blockquote {
+  margin: 0;
+  border-left: 1ch solid var(--color-primary);
+  padding-left: 1ch;
+  margin-left: 1ch;
+}
+
+code {
+  font-family: var(--font-code);
+  background: var(--color-secondary);
+  color: var(--color-highlight);
+}
+code.highlight { white-space: pre; }
+
+/* Horizontal rule */
+hr {
+  color: var(--color-primary);
+  border-width: var(--border-width) 0 0 0;
+  border-style: dotted;
+  margin: 2em 0;
+
+  /* Aligning hr::after (see below) */
+  text-align: center;
+  line-height: 1px;
+  font-size: 1em;
+}
+
+/* Little symbol in the middle of horizontal rule.
+ * This helps distinguish the horizontal rule from the borders in elements like
+ * <nav> and <footer>
+ */
+hr::after {
+  content: "§";
+  display: inline;
+  background: var(--color-background);
+  color: var(--color-highlight);
+  font-weight: bold;
+  padding: 0 .5em;
+}
+
+/* Without this, section headings are obscured by the navbar whenever
+ * its anchor links are used.
+ */
+section h2 { padding-top: 2em; }
+
+/* Horizontal rule separating sections
+ * It clears floats, and has no line.
+ */
+hr.sectionsplit {
+  clear: both;
+  color: transparent;
+  margin: 3em 0 0 0;
+}
+
+/* Styles for screens <550px wide */
+@media screen and (max-width: 550px) {
+  /* Remove padding in #wrap */
+  #wrap { padding: 0; }
+
+  /* Don't float scroll-up text to the right */
+  .scroll-up { float: initial; }
+
+  /* Disable floating on figures */
+  figure.right { float: initial; }
+  figure.left { float: initial; }
+
+  /* Make blockquote a little slimmer */
+  blockquote {
+    border-left: .5ch solid var(--color-primary);
+    padding-left: 1ch;
+    margin-left: 0;
+  }
+}
